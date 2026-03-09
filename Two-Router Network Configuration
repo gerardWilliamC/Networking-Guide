@@ -1,0 +1,110 @@
+// CONFIGURE R1 (CLI)
+enable
+configure terminal
+
+! G0/0 - connects to SW1 (192.168.10.x network)
+interface gigabitethernet 0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+! G0/1 - connects to SW2 (192.168.11.x network)
+interface gigabitethernet 0/1
+ip address 192.168.11.1 255.255.255.0
+no shutdown
+exit
+
+! S0/0/0 - serial link to R2
+interface serial 0/0/0
+ip address 209.165.200.225 255.255.255.252
+no shutdown
+exit
+
+// CONFIGURE R2 (CLI)
+enable
+configure terminal
+
+! G0/0 - connects to SW3 (10.1.1.x network)
+interface gigabitethernet 0/0
+ip address 10.1.1.1 255.255.255.0
+no shutdown
+exit
+
+! G0/1 - connects to SW4 (10.1.2.x network)
+interface gigabitethernet 0/1
+ip address 10.1.2.1 255.255.255.0
+no shutdown
+exit
+
+! S0/0/0 - serial link to R1
+interface serial 0/0/0
+ip address 209.165.200.226 255.255.255.252
+no shutdown
+exit
+
+// ADD STATIC ROUTES
+! R1
+ip route 10.1.1.0 255.255.255.0 209.165.200.226
+ip route 10.1.2.0 255.255.255.0 209.165.200.226
+exit
+
+! R2
+ip route 192.168.10.0 255.255.255.0 209.165.200.225
+ip route 192.168.11.0 255.255.255.0 209.165.200.225
+exit
+
+
+// ASSIGN IP ADDRESSES TO ALL PCS
+R1 Side PCs:
+PC	IPv4 Address	Subnet Mask	Default Gateway
+PC1	192.168.10.10	255.255.255.0	192.168.10.1
+PC2	192.168.10.11	255.255.255.0	192.168.10.1
+PC3	192.168.10.12	255.255.255.0	192.168.10.1
+PC4	192.168.11.10	255.255.255.0	192.168.11.1
+PC5	192.168.11.11	255.255.255.0	192.168.11.1
+PC6	192.168.11.12	255.255.255.0	192.168.11.1
+
+R2 Side PCs:
+PC	IPv4 Address	Subnet Mask	Default Gateway
+PC7	10.1.1.10	255.255.255.0	10.1.1.1
+PC8	10.1.1.11	255.255.255.0	10.1.1.1
+PC9	10.1.1.12	255.255.255.0	10.1.1.1
+PC10	10.1.2.10	255.255.255.0	10.1.2.1
+PC11	10.1.2.11	255.255.255.0	10.1.2.1
+PC12	10.1.2.12	255.255.255.0	10.1.2.1
+
+
+// TEST PING (OPTIONAL)
+! COMMAND PROMPT
+ping 10.1.1.10 
+ping 10.1.2.10  
+
+Expected result — success looks like:
+Reply from 10.1.1.10: bytes=32 time=33ms TTL=126
+
+
+// SETTING UP PASSWORD ON ROUTER (CLI)
+enable                           ! Enter privileged EXEC mode (from user mode)
+configure terminal               ! Enter global configuration mode to make changes
+
+hostname S1                      ! Give the switch a name (shows in command prompt)
+
+line console 0                   ! Access the physical console port settings
+password *******                 ! Set password for console access
+login                            ! Require password when someone connects via console
+exit                             ! Go back to global config mode
+
+enable secret ******             ! Set encrypted password to enter privileged mode
+service password-encryption      ! Encrypt ALL plaintext passwords in the config file
+
+banner motd $ Authorized Access Only $   ! Message displayed before login screen
+
+exit                             ! Exit global config mode
+
+show running-config              ! Display current active configuration to verify
+
+SW1- r1s1pass - r1s1secret
+SW2- r1s2pass - r1s2secret
+SW3- r2sw3pass - r2sw3secret
+SW4- r2sw4pass - r2sw4secret
+
