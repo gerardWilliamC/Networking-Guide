@@ -1,0 +1,77 @@
+// SETUP SWITCHES (CLI)
+! S1
+enable
+configure terminal
+hostname S1
+line console 0
+password <yourpassword>
+login
+exit
+
+enable password <yourpassword>
+banner motd $Your message here$
+clock set HH:MM:SS DD Month YYYY
+copy run start
+
+! S2
+enable
+configure terminal
+hostname S2
+line console 0
+password <yourpassword>
+login
+exit
+
+enable password <yourpassword>
+banner motd $Your message here$
+clock set HH:MM:SS DD Month YYYY
+copy run start
+
+! S3
+enable
+configure terminal
+hostname S3
+line console 0
+password <yourpassword>
+login
+exit
+
+enable password <yourpassword>
+banner motd $Your message here$
+clock set HH:MM:SS DD Month YYYY
+copy run start
+
+
+
+// SETUP VLAN (CLI)
+! S1
+interface vlan 1
+ip address 192.168.20.11 255.255.255.0
+no shutdown
+exit
+
+! S2
+interface vlan 1
+ip address 192.168.20.12 255.255.255.0
+no shutdown
+
+! S3
+interface vlan 1
+ip address 192.168.20.13 255.255.255.0
+no shutdown
+
+
+
+// ASSIGN IP ADDRESSES TO ALL PCS
+PC IP Address Subnet Mask
+PC1 192.168.20.21 255.255.255.0
+PC2 192.168.20.31 255.255.255.0
+PC3 192.168.20.41 255.255.255.0
+PC4 192.168.20.51 255.255.255.0
+
+
+// TEST PING (OPTIONAL)
+! COMMAND PROMPT
+ping 192.168.20.31
+ping 192.168.20.41
+ping 192.168.20.51
