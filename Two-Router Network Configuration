@@ -90,21 +90,23 @@ configure terminal               ! Enter global configuration mode to make chang
 hostname S1                      ! Give the switch a name (shows in command prompt)
 
 line console 0                   ! Access the physical console port settings
-password *******                 ! Set password for console access
+password <yourpassword>          ! Set password for console access
 login                            ! Require password when someone connects via console
 exit                             ! Go back to global config mode
 
-enable secret ******             ! Set encrypted password to enter privileged mode
+enable secret <password>         ! Set encrypted password to enter privileged mode
 service password-encryption      ! Encrypt ALL plaintext passwords in the config file
 
-banner motd $ Authorized Access Only $   ! Message displayed before login screen
+banner motd $yourmessage$        ! Message displayed before login screen
 
 exit                             ! Exit global config mode
 
 show running-config              ! Display current active configuration to verify
 
+
+<MY PASSWORDS>
 SW1- r1s1pass - r1s1secret
 SW2- r1s2pass - r1s2secret
-SW3- r2sw3pass - r2sw3secret
-SW4- r2sw4pass - r2sw4secret
+SW3- r2s3pass - r2s3secret
+SW4- r2s4pass - r2s4secret
 
