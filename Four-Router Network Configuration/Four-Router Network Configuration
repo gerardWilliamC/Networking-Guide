@@ -1,0 +1,244 @@
+// CONFIGURE ROUTERS (CLI)
+!! Router R1
+enable
+configure terminal
+
+hostname R1
+line console 0
+password < >
+login
+exit
+
+enable secret < >
+banner motd # <message> #
+clock set 00:00:00 1 January 2026
+
+interface giga0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+interface giga0/1
+ip address 192.168.11.1 255.255.255.0
+no shutdown
+exit
+
+interface se0/0/0
+ip address 11.0.0.1 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+interface se0/1/0
+ip address 14.0.0.2 255.255.255.252
+no shutdown
+exit
+
+end
+write memory
+
+
+!! Router R2
+enable
+configure terminal
+
+hostname R2
+line console 0
+password < >
+login
+exit
+
+enable secret < >
+banner motd # <message> #
+clock set 00:00:00 1 January 2026
+
+interface giga0/0
+ip address 10.1.1.1 255.255.255.0
+no shutdown
+exit
+
+interface giga0/1
+ip address 10.1.2.1 255.255.255.0
+no shutdown
+exit
+
+interface se0/0/0
+ip address 11.0.0.2 255.255.255.252
+no shutdown
+exit
+
+interface se0/1/0
+ip address 12.0.0.1 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+end
+write memory
+
+
+!! Router R3
+enable
+configure terminal
+
+hostname R3
+line console 0
+password < >
+login
+exit
+
+enable secret < >
+banner motd # <message> #
+clock set 00:00:00 1 January 2026
+
+interface giga0/0
+ip address 172.16.22.1 255.255.255.0
+no shutdown
+exit
+
+interface giga0/1
+ip address 172.16.23.1 255.255.255.0
+no shutdown
+exit
+
+interface se0/0/0
+ip address 12.0.0.2 255.255.255.252
+no shutdown
+exit
+
+interface se0/1/0
+ip address 13.0.0.1 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+end
+write memory
+
+
+!! Router R4
+enable
+configure terminal
+
+hostname R4
+line console 0
+password < >
+login
+exit
+
+enable secret < >
+banner motd # <message> #
+clock set 00:00:00 1 January 2026
+interface giga0/0
+ip address 192.0.41.1 255.255.255.0
+no shutdown
+exit
+
+interface giga0/1
+ip address 192.0.42.1 255.255.255.0
+no shutdown
+exit
+
+interface se0/0/0
+ip address 13.0.0.2 255.255.255.252
+no shutdown
+exit
+
+interface se0/1/0
+ip address 14.0.0.1 255.255.255.252
+no shutdown
+exit
+
+end
+write memory
+
+
+// ADD STATIC ROUTES (CLI)
+!! R1 Static Routes
+configure terminal
+ip route 10.1.1.0 255.255.255.0 11.0.0.2
+ip route 10.1.2.0 255.255.255.0 11.0.0.2
+ip route 172.16.22.0 255.255.255.0 11.0.0.2
+ip route 172.16.23.0 255.255.255.0 11.0.0.2
+ip route 192.0.41.0 255.255.255.0 14.0.0.1
+ip route 192.0.42.0 255.255.255.0 14.0.0.1
+ip route 12.0.0.0 255.255.255.252 11.0.0.2
+ip route 13.0.0.0 255.255.255.252 14.0.0.1
+end
+write memory
+
+!! R2 Static Routes
+configure terminal
+ip route 192.168.10.0 255.255.255.0 11.0.0.1
+ip route 192.168.11.0 255.255.255.0 11.0.0.1
+ip route 172.16.22.0 255.255.255.0 12.0.0.2
+ip route 172.16.23.0 255.255.255.0 12.0.0.2
+ip route 192.0.41.0 255.255.255.0 12.0.0.2
+ip route 192.0.42.0 255.255.255.0 12.0.0.2
+ip route 13.0.0.0 255.255.255.252 12.0.0.2
+ip route 14.0.0.0 255.255.255.252 11.0.0.1
+end
+write memory
+
+!! R3 Static Routes
+configure terminal
+ip route 192.168.10.0 255.255.255.0 12.0.0.1
+ip route 192.168.11.0 255.255.255.0 12.0.0.1
+ip route 10.1.1.0 255.255.255.0 12.0.0.1
+ip route 10.1.2.0 255.255.255.0 12.0.0.1
+ip route 192.0.41.0 255.255.255.0 13.0.0.2
+ip route 192.0.42.0 255.255.255.0 13.0.0.2
+ip route 11.0.0.0 255.255.255.252 12.0.0.1
+ip route 14.0.0.0 255.255.255.252 13.0.0.2
+end
+write memory
+
+!! R4 Static Routes
+configure terminal
+ip route 192.168.10.0 255.255.255.0 14.0.0.2
+ip route 192.168.11.0 255.255.255.0 14.0.0.2
+ip route 10.1.1.0 255.255.255.0 13.0.0.1
+ip route 10.1.2.0 255.255.255.0 13.0.0.1
+ip route 172.16.22.0 255.255.255.0 13.0.0.1
+ip route 172.16.23.0 255.255.255.0 13.0.0.1
+ip route 11.0.0.0 255.255.255.252 14.0.0.2
+ip route 12.0.0.0 255.255.255.252 13.0.0.1
+end
+write memory
+
+
+// ASSIGN IP ADDRESSES TO PC's
+PC IP Address Subnet Mask Default Gateway
+PC1 192.168.10.2 255.255.255.0 192.168.10.1
+PC2 192.168.10.3 255.255.255.0 192.168.10.1
+PC3 192.168.11.2 255.255.255.0 192.168.11.1
+PC4 192.168.11.3 255.255.255.0 192.168.11.1
+PC5 10.1.1.2 255.255.255.0 10.1.1.1
+PC6 10.1.1.3 255.255.255.0 10.1.1.1
+PC7 10.1.2.2 255.255.255.0 10.1.2.1
+PC8 10.1.2.3 255.255.255.0 10.1.2.1
+PC9 172.16.22.2 255.255.255.0 172.16.22.1
+PC10 172.16.22.3 255.255.255.0 172.16.22.1
+PC11 172.16.23.2 255.255.255.0 172.16.23.1
+PC12 172.16.23.3 255.255.255.0 172.16.23.1
+PC13 192.0.41.2 255.255.255.0 192.0.41.1
+PC14 192.0.41.3 255.255.255.0 192.0.41.1
+PC15 192.0.42.2 255.255.255.0 192.0.42.1
+PC16 192.0.42.3 255.255.255.0 192.0.42.1
+
+
+// TEST CONNECTION (COMMAND PROMPT) *OPTIONAL
+ping 192.168.10.1 (your own gateway - should always work)
+ping 192.168.11.2 (same router, different subnet)
+ping 10.1.1.2 (different router)
+ping 192.0.42.3 (farthest PC)
+
+
+
+
+
+// MY PASSWORD's
+R1 - examR1 - labexamR1
+R2 - examR2 - labexamR2
+R3 - examR3 - labexamR3
+R4 - examR4 - labexamR4
