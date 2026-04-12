@@ -5,14 +5,16 @@ configure terminal
 
 hostname R1
 line console 0
-password < >
+password tacocatR1
 login
 exit
 
-enable secret < >
-banner motd # <message> #
-clock set 00:00:00 1 January 2026
+enable secret redhotR1
+banner motd #Now accessing R1. Authorized Personnel only - Admin Cahapay#
+exit
+clock set 18:00:00 27 November 2017
 
+configure terminal
 interface giga0/0
 ip address 192.168.10.1 255.255.255.0
 no shutdown
@@ -44,14 +46,16 @@ configure terminal
 
 hostname R2
 line console 0
-password < >
+password tacocatR2
 login
 exit
 
-enable secret < >
-banner motd # <message> #
-clock set 00:00:00 1 January 2026
+enable secret redhotR2
+banner motd #Now accessing R2. Authorized Personnel only - Admin Cahapay#
+exit
+clock set 18:00:00 27 November 2017
 
+configure terminal
 interface giga0/0
 ip address 10.1.1.1 255.255.255.0
 no shutdown
@@ -83,14 +87,16 @@ configure terminal
 
 hostname R3
 line console 0
-password < >
+password tacocatR3
 login
 exit
 
-enable secret < >
-banner motd # <message> #
-clock set 00:00:00 1 January 2026
+enable secret redhotR3
+banner motd #Now accessing R3. Authorized Personnel only - Admin Cahapay#
+exit
+clock set 18:00:00 27 November 2017
 
+configure terminal
 interface giga0/0
 ip address 172.16.22.1 255.255.255.0
 no shutdown
@@ -122,13 +128,16 @@ configure terminal
 
 hostname R4
 line console 0
-password < >
+password tacocatR4
 login
 exit
 
-enable secret < >
-banner motd # <message> #
-clock set 00:00:00 1 January 2026
+enable secret redhotR4
+banner motd #Now accessing R4. Authorized Personnel only - Admin Cahapay#
+exit
+clock set 18:00:00 27 November 2017
+
+configure terminal
 interface giga0/0
 ip address 192.0.41.1 255.255.255.0
 no shutdown
@@ -224,7 +233,7 @@ PC12 172.16.23.3 255.255.255.0 172.16.23.1
 PC13 192.0.41.2 255.255.255.0 192.0.41.1
 PC14 192.0.41.3 255.255.255.0 192.0.41.1
 PC15 192.0.42.2 255.255.255.0 192.0.42.1
-PC16 192.0.42.3 255.255.255.0 192.0.42.1
+PC16 192.0.42.3 255.255.255.0 192.0.42.110.1.2.2
 
 
 // TEST CONNECTION (COMMAND PROMPT) *OPTIONAL
@@ -238,7 +247,7 @@ ping 192.0.42.3 (farthest PC)
 
 
 // MY PASSWORD's
-R1 - examR1 - labexamR1
-R2 - examR2 - labexamR2
-R3 - examR3 - labexamR3
-R4 - examR4 - labexamR4
+R1 - tacocatR1 - redhotR1
+R2 - tacocatR2 - redhotR2
+R3 - tacocatR3 - redhotR3
+R4 - tacocatR4 - redhotR4
