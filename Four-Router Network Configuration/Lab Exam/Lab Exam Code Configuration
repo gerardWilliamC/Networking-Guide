@@ -242,6 +242,13 @@ ping 192.168.11.2 (same router, different subnet)
 ping 10.1.1.2 (different router)
 ping 192.0.42.3 (farthest PC)
 
+// CHECKING CONNECTION (CLI) *OPTIONAL
+show ip interface brief      : Displays a quick summary of interface status and IP addresses.
+show running-config          : Shows the active configuration currently in RAM.
+show interfaces              : Provides detailed statistics for all interfaces.
+show ip route                : Displays the routing table.
+show cdp neighbors           : Shows directly connected Cisco devices.
+
 
 
 
