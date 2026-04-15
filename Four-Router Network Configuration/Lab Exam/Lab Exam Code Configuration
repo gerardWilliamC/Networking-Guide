@@ -10,6 +10,7 @@ login
 exit
 
 enable secret redhotR1
+service password-encryption
 banner motd #Now accessing R1. Authorized Personnel only - Admin Cahapay#
 exit
 clock set 18:00:00 27 November 2017
@@ -51,6 +52,7 @@ login
 exit
 
 enable secret redhotR2
+service password-encryption
 banner motd #Now accessing R2. Authorized Personnel only - Admin Cahapay#
 exit
 clock set 18:00:00 27 November 2017
@@ -92,6 +94,7 @@ login
 exit
 
 enable secret redhotR3
+service password-encryption
 banner motd #Now accessing R3. Authorized Personnel only - Admin Cahapay#
 exit
 clock set 18:00:00 27 November 2017
@@ -133,6 +136,7 @@ login
 exit
 
 enable secret redhotR4
+service password-encryption
 banner motd #Now accessing R4. Authorized Personnel only - Admin Cahapay#
 exit
 clock set 18:00:00 27 November 2017
